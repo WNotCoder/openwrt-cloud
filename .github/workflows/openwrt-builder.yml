@@ -43,7 +43,6 @@ jobs:
       run: |
         sudo mkdir -p /mnt/tools /mnt/temp
         sudo mount -o remount,size=250G /mnt
-        df -h # 验证扩容后的磁盘空间
 
     - name: Initialization environment
       env:

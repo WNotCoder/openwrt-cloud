@@ -27,9 +27,6 @@ env:
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: true
   TZ: Asia/Shanghai
-# 提升runner磁盘空间
-  AGENT_TOOLSDIRECTORY: /mnt/tools
-  RUNNER_TEMP: /mnt/temp
 
 jobs:
   build:
@@ -39,11 +36,9 @@ jobs:
     - name: Checkout
       uses: actions/checkout@main
 
-    - name: Space Initialize #初始化并挂载扩容磁盘（核心步骤，必须加在最前面）
-      run: |
-        sudo mkdir -p /mnt/tools /mnt/temp
-        sudo mount -o remount,size=250G /mnt
-
+    - name: Clean up
+      run: curl -sSL https://raw.githubusercontent.com/easimon/maximize-build-space/master/cleanup.sh | sudo bash -e
+    
     - name: Initialization environment
       env:
         DEBIAN_FRONTEND: noninteractive

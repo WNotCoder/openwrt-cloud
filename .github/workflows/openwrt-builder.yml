@@ -37,7 +37,17 @@ jobs:
       uses: actions/checkout@main
 
     - name: Clean up
-      run: curl -sSL https://raw.githubusercontent.com/easimon/maximize-build-space/master/cleanup.sh | sudo bash -e
+      run: |
+        sudo apt clean && sudo apt autoremove -y --purge
+        sudo apt remove -y --purge libreoffice* firefox* chromium* google-chrome* dotnet* mono* llvm*
+        sudo docker system prune -a -f --volumes
+        sudo docker builder prune -a -f
+        docker rmi $(docker images -aq) 2>/dev/null
+        sudo rm -rf /usr/local/lib/android /opt/hostedtoolcache /usr/share/dotnet /usr/local/share/boost
+        rm -rf ~/.npm ~/.yarn ~/.pip ~/.cache ~/.gradle
+        sudo rm -rf /tmp/* /var/tmp/* /var/log/* /var/cache/apt/*
+        sync && echo 3 > /proc/sys/vm/drop_caches
+        df -h
     
     - name: Initialization environment
       env:

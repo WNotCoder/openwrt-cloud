@@ -3,6 +3,11 @@
 
 TODO：
 - [x] 减少内存驻留软件。（当前默认开机内存可用率64%）
+- [x] 删除所有无线模块
+- [X] 内置nikki openclash lucky socat qos upnp vlmcsd diskman
+- [X] 启用 ZRAM 压缩，支持 ZRAM Swap
+- [X] 启用 AES、SHA256/512 ARMv8 硬件加速
+- [X] 只添加了基本的USB驱动
 - [x] 增加Socat
 - [x] 删除Ksmbd
 - [ ] 增加文件管理软件，用于读取路由器内部分区文件

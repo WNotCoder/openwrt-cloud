@@ -8,8 +8,6 @@ TODO：
 - [X] 启用 ZRAM 压缩，支持 ZRAM Swap
 - [X] 启用 AES、SHA256/512 ARMv8 硬件加速
 - [X] 只添加了基本的USB驱动
-- [x] 增加Socat
-- [x] 删除Ksmbd
 - [ ] 增加文件管理软件，用于读取路由器内部分区文件
 - [ ] 内置最新openclash内核
 - [ ] nikki插件版本号不显示，排查原因

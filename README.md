@@ -13,4 +13,5 @@ TODO：
 - [ ] 内置最新openclash内核
 - [ ] nikki插件版本号不显示，排查原因
 - [ ] 删qos
+- [ ] 增加curl wget命令
 - [ ] 整理侧边栏目

@@ -11,7 +11,8 @@ TODO：
 - [X] 只添加了基本的USB驱动
 - [ ] 增加文件管理软件，用于读取路由器内部分区文件
 - [ ] 内置最新openclash内核
-- [ ] nikki插件版本号不显示，排查原因
+- [X] nikki插件版本号不显示，排查原因。（直接删了）
 - [ ] 删qos
 - [ ] 增加curl wget命令
 - [ ] 整理侧边栏目
+- [X] 增加netspeedtest，[引用来源：spirpdboy](https://github.com/sirpdboy/netspeedtest)

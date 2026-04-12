@@ -77,6 +77,17 @@ jobs:
     - name: Install feeds
       run: cd openwrt && ./scripts/feeds install -a
 
+    - name: Download OpenClash Meta core
+      run: |
+        mkdir -p files/etc/openclash/core
+        cd files/etc/openclash/core
+        wget -q https://raw.githubusercontent.com/vernesong/OpenClash/core/master/meta/clash-linux-arm64.tar.gz
+        tar -xzf clash-linux-arm64.tar.gz
+        mv clash clash_meta
+        rm -f clash-linux-arm64.tar.gz
+        chmod +x clash_meta
+        echo "OpenClash Meta core downloaded and configured"
+
     - name: Load custom configuration
       run: |
         [ -e files ] && mv files openwrt/files

@@ -23,6 +23,7 @@ env:
   CONFIG_FILE: .config
   DIY_P1_SH: diy-part1.sh
   DIY_P2_SH: diy-part2.sh
+  DIY_U1_SH: diy-update.sh
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: true
@@ -66,6 +67,12 @@ jobs:
 
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds update -a
+
+    - name: Execute after update
+      run: |
+        chmod +x $DIY_U1_SH
+        cd openwrt
+        $GITHUB_WORKSPACE/$DIY_U1_SH
 
     - name: Install feeds
       run: cd openwrt && ./scripts/feeds install -a

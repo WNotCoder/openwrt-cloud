@@ -4,15 +4,10 @@
 TODO：
 - [x] 减少内存驻留软件。（当前默认开机内存可用率64%）
 - [x] 删除所有无线模块
-- [X] 内置nikki openclash lucky socat qos upnp vlmcsd diskman
-- [X] 启用了CPU频率控制
+- [X] 内置nikki openclash lucky upnp vlmcsd diskman filebrowser filemanager
 - [X] 启用 ZRAM 压缩，支持 ZRAM Swap
-- [X] 启用 AES、SHA256/512 ARMv8 硬件加速
 - [X] 只添加了基本的USB驱动
-- [ ] 增加文件管理软件，用于读取路由器内部分区文件
 - [ ] 内置最新openclash内核
-- [X] nikki插件版本号不显示，排查原因。（直接删了）
-- [ ] 删qos
 - [ ] 增加curl wget命令
 - [ ] 整理侧边栏目
 - [X] 增加netspeedtest，[引用来源：spirpdboy](https://github.com/sirpdboy/netspeedtest)

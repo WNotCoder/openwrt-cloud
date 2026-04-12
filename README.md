@@ -7,7 +7,7 @@ TODO：
 - [X] 内置nikki openclash lucky upnp vlmcsd diskman filebrowser filemanager
 - [X] 启用 ZRAM 压缩，支持 ZRAM Swap
 - [X] 只添加了基本的USB驱动
-- [ ] 内置最新openclash内核
+- [x] 内置最新openclash内核
 - [x] 增加curl wget命令
 - [ ] 整理侧边栏目
 - [X] 增加netspeedtest，[引用来源：spirpdboy](https://github.com/sirpdboy/netspeedtest)

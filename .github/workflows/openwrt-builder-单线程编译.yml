@@ -10,7 +10,7 @@
 # See /LICENSE for more information.
 #
 
-name: OpenWrt Builder（单线程编译）
+name: OpenWrt Builder_single-thread
 
 on:
   repository_dispatch:

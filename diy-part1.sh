@@ -18,4 +18,4 @@ sed -i '1i src-git kenzo https://github.com/kenzok8/openwrt-packages' feeds.conf
 sed -i '2i src-git small https://github.com/kenzok8/small' feeds.conf.default
 
 # Add git repository
-git clone https://github.com/WNotCoder/netspeedtest package/external/netspeedtest
+

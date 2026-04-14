@@ -59,11 +59,9 @@
 
 ## 需要注意的事项
 
-```
-使用nikki需要关闭系统自带的DNS重定向功能（位置：网络-DNS-DNS重定向）。
-请勿开启路由/NAT卸载功能，NSS固件自身已支持，此项功能开启无论软硬都会导致使用OpenWrt系统自带的流量卸载功能，使NSS失效。
-管理地址：192.168.100.1，默认无密码
-```
+1. 使用nikki需要关闭系统自带的DNS重定向功能（位置：网络-DNS-DNS重定向）。
+2. 请勿开启路由/NAT卸载功能，NSS固件自身已支持，此项功能开启无论软硬都会导致使用OpenWrt系统自带的流量卸载功能，使NSS失效。
+3. 管理地址：192.168.100.1，默认无密码
 
 ***
 
@@ -78,7 +76,7 @@
 
 ## 社区
 
-- 📖 基于[ImmortalWrt](https://github.com/immortalwrt/immortalwrt)[VIKINGYFY的ImmortalWrt项目](https://github.com/VIKINGYFY/immortalwrt)编译
+- 📖 基于[ImmortalWrt官方](https://github.com/immortalwrt/immortalwrt)以及[VIKINGYFY的ImmortalWrt项目](https://github.com/VIKINGYFY/immortalwrt)编译
 - 💬 NSS 支持代码来自于：[JiaY-shi](https://github.com/JiaY-shi)和[qosmio](https://github.com/qosmio)
 - 🐙 云编译使用[p3terx](https://p3terx.com/archives/build-openwrt-with-github-actions.html)的云编译代码
 

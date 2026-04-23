@@ -18,3 +18,21 @@ sed -i 's/192.168.1.1/192.168.100.1/g' package/base-files/files/bin/config_gener
 
 # Modify hostname
 #sed -i 's/OpenWrt/P3TERX-Router/g' package/base-files/files/bin/config_generate
+
+# Download OpenClash Meta core
+mkdir -p files/etc/openclash/core
+cd files/etc/openclash/core
+wget -q https://raw.githubusercontent.com/vernesong/OpenClash/core/master/meta/clash-linux-arm64.tar.gz
+tar -xzf clash-linux-arm64.tar.gz
+mv clash clash_meta
+rm -f clash-linux-arm64.tar.gz
+chmod +x clash_meta
+echo "OpenClash Meta core downloaded and configured"
+
+# Download nikki ip file
+mkdir -p /etc/nikki/run
+wget -O /etc/nikki/run/geoip-lite.dat https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip-lite.dat
+wget -O /etc/nikki/run/geosite.dat https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.dat
+wget -O /etc/nikki/run/country-lite.mmdb https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/country-lite.mmdb
+wget -O /etc/nikki/run/GeoLite2-ASN.mmdb https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/GeoLite2-ASN.mmdb
+echo "nikki ip file downloaded"

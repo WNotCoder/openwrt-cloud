@@ -30,9 +30,10 @@ chmod +x clash_meta
 echo "OpenClash Meta core downloaded and configured"
 
 # Download nikki ip file
-mkdir -p /etc/nikki/run
-wget -O /etc/nikki/run/geoip-lite.dat https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip-lite.dat
-wget -O /etc/nikki/run/geosite.dat https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.dat
-wget -O /etc/nikki/run/country-lite.mmdb https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/country-lite.mmdb
-wget -O /etc/nikki/run/GeoLite2-ASN.mmdb https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/GeoLite2-ASN.mmdb
+mkdir -p files/etc/nikki/run
+cd files/etc/nikki/run
+wget -O https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip-lite.dat
+wget -O https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.dat
+wget -O https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/country-lite.mmdb
+wget -O https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/GeoLite2-ASN.mmdb
 echo "nikki ip file downloaded"

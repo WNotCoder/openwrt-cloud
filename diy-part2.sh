@@ -32,8 +32,5 @@ echo "OpenClash Meta core downloaded and configured"
 # Download nikki ip file
 mkdir -p files/etc/nikki/run
 cd files/etc/nikki/run
-wget -q https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip-lite.dat
-wget -q https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.dat
-wget -q https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/country-lite.mmdb
-wget -q https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/GeoLite2-ASN.mmdb
+wget -q -O geoip.metadb https://raw.githubusercontent.com/Loyalsoldier/geoip/release/Country-without-asn.mmdb || echo "Error: Failed to download geoip.metadb"
 echo "nikki ip file downloaded"

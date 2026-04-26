@@ -19,9 +19,7 @@ sed -i 's/192.168.1.1/192.168.100.1/g' package/base-files/files/bin/config_gener
 # Modify hostname
 #sed -i 's/OpenWrt/P3TERX-Router/g' package/base-files/files/bin/config_generate
 
-# Modify default protocol to pppoe
-sed -i 's/protocol "\${2:-dhcp}"/protocol "${2:-pppoe}"/' package/base-files/files/lib/functions/uci-defaults.sh
-sed -i 's/wan) json_add_string protocol dhcp/wan) json_add_string protocol pppoe/' package/base-files/files/lib/functions/uci-defaults.sh
+
 
 
 

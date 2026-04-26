@@ -23,11 +23,11 @@ echo "正在解压 OpenClash Meta core..."
 tar -xzf clash-linux-arm64.tar.gz || error_exit "解压 OpenClash Meta core 失败"
 
 echo "正在移动 OpenClash Meta core..."
-mv clash-linux-arm64 clash_mate || error_exit "重命名 OpenClash Meta core 失败"
-mv clash_mate files/etc/openclash/core/ || error_exit "移动 OpenClash Meta core 失败"
+mv clash clash_meta || error_exit "重命名 OpenClash Meta core 失败"
+mv clash_meta files/etc/openclash/core/ || error_exit "移动 OpenClash Meta core 失败"
 
 # 设置权限为755
-chmod 755 files/etc/openclash/core/clash_mate || error_exit "设置 OpenClash Meta core 权限失败"
+chmod 755 files/etc/openclash/core/clash_meta || error_exit "设置 OpenClash Meta core 权限失败"
 
 echo "OpenClash Meta core downloaded"
 

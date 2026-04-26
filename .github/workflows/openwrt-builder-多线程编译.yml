@@ -73,6 +73,7 @@ jobs:
         chmod +x $DIY_U1_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_U1_SH
+        ls -l ./files/etc  # 临时测试，检查是否下载成功
 
     - name: Install feeds
       run: cd openwrt && ./scripts/feeds install -a

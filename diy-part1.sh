@@ -19,4 +19,4 @@ sed -i '2i src-git small https://github.com/kenzok8/small' feeds.conf.default
 
 # Add git repository
 git clone --depth 1 --branch master https://github.com/muink/luci-app-netspeedtest.git package/external/luci-app-netspeedtest
-git clone --depth 1 --branch main https://github.com/zyqfork/luci-app-ap-modem.git package/external/luci-app-ap-modem
+git clone --depth 1 --branch main https://github.com/WNotCoder/luci-app-ap-modem.git package/external/luci-app-ap-modem

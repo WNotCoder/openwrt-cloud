@@ -10,10 +10,9 @@
 # See /LICENSE for more information.
 #
 
-name: OpenWrt Builder_multi-thread
+name: OpenWrt Builder (多线程编译)-RE-SS-01
 
 on:
-  repository_dispatch:
   workflow_dispatch:
 
 env:
@@ -73,9 +72,11 @@ jobs:
         chmod +x $DIY_U1_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_U1_SH
+        ls -l ./files/etc  # 临时测试，检查是否下载成功
 
     - name: Install feeds
       run: cd openwrt && ./scripts/feeds install -a
+
 
     - name: Load custom configuration
       run: |
@@ -84,6 +85,8 @@ jobs:
         chmod +x $DIY_P2_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
+        ls -l ./files/etc/openclash/core  # 临时测试，检查是否下载成功
+        ls -l ./files/etc/nikki/run  # 临时测试，检查是否下载成功
 
     - name: Download package
       id: package
@@ -104,6 +107,8 @@ jobs:
         grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
         [ -s DEVICE_NAME ] && echo "DEVICE_NAME=_$(cat DEVICE_NAME)" >> $GITHUB_ENV
         echo "FILE_DATE=_$(date +"%Y%m%d%H%M")" >> $GITHUB_ENV
+        ls -l ./files/etc/openclash/core  # 临时测试，检查是否下载成功
+        ls -l ./files/etc/nikki/run  # 临时测试，检查是否下载成功
 
     - name: Check space usage
       if: (!cancelled())

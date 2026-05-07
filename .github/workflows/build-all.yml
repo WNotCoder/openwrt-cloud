@@ -1,6 +1,9 @@
 name: Build All Devices
 
 on:
+  repository_dispatch:
+    types:
+      - build-all-trigger
   workflow_dispatch:
 
 env:

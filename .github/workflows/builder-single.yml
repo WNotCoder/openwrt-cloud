@@ -10,7 +10,7 @@
 # See /LICENSE for more information.
 #
 
-name: OpenWrt Builder (单线程编译)-RE-SS-01
+name: OpenWrt Builder
 
 on:
   workflow_dispatch:
@@ -76,6 +76,16 @@ jobs:
     - name: Install feeds
       run: cd openwrt && ./scripts/feeds install -a
 
+    - name: Download OpenClash Meta core
+      run: |
+        mkdir -p files/etc/openclash/core
+        cd files/etc/openclash/core
+        wget -q https://raw.githubusercontent.com/vernesong/OpenClash/core/master/meta/clash-linux-arm64.tar.gz
+        tar -xzf clash-linux-arm64.tar.gz
+        mv clash clash_meta
+        rm -f clash-linux-arm64.tar.gz
+        chmod +x clash_meta
+        echo "OpenClash Meta core downloaded and configured"
 
     - name: Load custom configuration
       run: |

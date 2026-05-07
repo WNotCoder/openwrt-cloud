@@ -13,8 +13,8 @@
 name: Update Checker
 
 env:
-  REPO_URL: https://github.com/coolsnowwolf/lede
-  REPO_BRANCH: master
+  REPO_URL: https://github.com/VIKINGYFY/immortalwrt
+  REPO_BRANCH: main
 
 on:
   workflow_dispatch:
@@ -50,7 +50,7 @@ jobs:
       uses: peter-evans/repository-dispatch@v2
       with:
         token: ${{ github.token }}
-        event-type: Source Code Update
+        event-type: build-all-trigger
 
     - name: Delete workflow runs
       uses: Mattraks/delete-workflow-runs@v2

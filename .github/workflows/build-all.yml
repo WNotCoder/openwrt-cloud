@@ -208,7 +208,7 @@ jobs:
           echo "上传: $filename"
           curl -T "$file" \
             -u "${{ secrets.WEBDAV_USERNAME }}:${{ secrets.WEBDAV_PASSWORD }}" \
-            "${{ secrets.WEBDAV_URL }}/${{ matrix.name }}_${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}/$filename"
+            "${{ secrets.WEBDAV_URL }}/${{ env.DEVICE_NAME }}/${{ env.FILE_DATE }}/$filename"
         done
         echo "WebDAV 上传完成"
 

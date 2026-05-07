@@ -3,7 +3,7 @@ name: Build All Devices
 on:
   repository_dispatch:
     types:
-      - Source Code Update   # 监听名为 "Source Code Update" 的事件
+      - build-all-trigger
   workflow_dispatch:
 
 env:

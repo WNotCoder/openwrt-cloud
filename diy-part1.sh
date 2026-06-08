@@ -23,4 +23,4 @@ umask 022
 git checkout
 popd
 
-git clone --depth 1 --branch main https://github.com/zyqfork/luci-app-ap-modem.git package/external/luci-app-ap-modem
+git clone --depth 1 --branch main https://github.com/WNotCoder/luci-app-ap-modem.git package/external/luci-app-ap-modem

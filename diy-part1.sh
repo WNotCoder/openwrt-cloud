@@ -18,4 +18,9 @@ sed -i '1i src-git kenzo https://github.com/kenzok8/openwrt-packages' feeds.conf
 sed -i '2i src-git small https://github.com/kenzok8/small' feeds.conf.default
 
 # Add git repository
-git clone --depth 1 --branch master https://github.com/muink/luci-app-netspeedtest.git package/external/luci-app-netspeedtest
+git clone --depth 1 --branch master --single-branch --no-checkout https://github.com/muink/luci-app-netspeedtest.git package/external/luci-app-netspeedtest
+umask 022
+git checkout
+popd
+
+git clone --depth 1 --branch master https://github.com/zyqfork/luci-app-ap-modem.git package/external/luci-app-ap-modem

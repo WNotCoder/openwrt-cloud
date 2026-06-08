@@ -34,5 +34,4 @@ echo "nikki ip file downloaded"
 
 echo "OpenClash Meta core and nikki ip file downloaded"
 
-# 处理 luci-app-ap-modem 版本号问题
-sed -i 's/1\.0\.4-20230408/1.0.4+20230408/g' package/external/luci-app-ap-modem/Makefile
+

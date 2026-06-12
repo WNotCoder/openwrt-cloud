@@ -212,6 +212,108 @@ jobs:
         done
         echo "WebDAV 上传完成"
 
+    - name: Clean up old firmware on WebDAV
+      if: env.UPLOAD_WEBDAV == 'true' && !cancelled()
+      run: |
+        echo "开始清理 WebDAV 上的旧固件..."
+        
+        WEBDAV_URL="${{ secrets.WEBDAV_URL }}"
+        WEBDAV_USERNAME="${{ secrets.WEBDAV_USERNAME }}"
+        WEBDAV_PASSWORD="${{ secrets.WEBDAV_PASSWORD }}"
+        DEVICE_NAME="${{ env.DEVICE_NAME | slice(1) }}"
+        
+        response=$(curl -s -u "$WEBDAV_USERNAME:$WEBDAV_PASSWORD" \
+            -X PROPFIND "$WEBDAV_URL/$DEVICE_NAME/" \
+            -H "Content-Type: application/xml" \
+            -d '<?xml version="1.0" encoding="utf-8" ?>
+<propfind xmlns="DAV:">
+  <prop>
+    <displayname />
+  </prop>
+</propfind>')
+        
+        folders=$(echo "$response" | grep -oP '(?<=<displayname>)[0-9]{12}(?=</displayname>)' | sort -r)
+        
+        echo "找到的固件版本文件夹:"
+        echo "$folders"
+        
+        folder_count=$(echo "$folders" | grep -c .)
+        if [ $folder_count -le 3 ]; then
+            echo "固件版本数量不超过3个，无需清理"
+            exit 0
+        fi
+        
+        current_time=$(date +%s)
+        keep_folders=""
+        
+        while IFS= read -r folder; do
+            folder_date="${folder:0:4}-${folder:4:2}-${folder:6:2} ${folder:8:2}:${folder:10:2}"
+            folder_time=$(date -d "$folder_date" +%s 2>/dev/null || echo "0")
+            
+            if [ "$folder_time" = "0" ]; then
+                continue
+            fi
+            
+            if [ -z "$keep_folders" ]; then
+                keep_folders="$folder"
+                echo "保留最新版本: $folder"
+            else
+                diff=$((current_time - folder_time))
+                
+                week_ago=$((current_time - 7 * 24 * 60 * 60))
+                week_diff=$((folder_time - week_ago))
+                week_diff_abs=${week_diff#-}
+                
+                if [ $week_diff_abs -lt $((24 * 60 * 60)) ] && ! echo "$keep_folders" | grep -q "$folder"; then
+                    keep_folders="$keep_folders $folder"
+                    echo "保留一周前版本: $folder"
+                    continue
+                fi
+                
+                month_ago=$((current_time - 30 * 24 * 60 * 60))
+                month_diff=$((folder_time - month_ago))
+                month_diff_abs=${month_diff#-}
+                
+                if [ $month_diff_abs -lt $((24 * 60 * 60)) ] && ! echo "$keep_folders" | grep -q "$folder"; then
+                    keep_folders="$keep_folders $folder"
+                    echo "保留一个月前版本: $folder"
+                    continue
+                fi
+            fi
+        done <<< "$folders"
+        
+        keep_count=$(echo "$keep_folders" | wc -w)
+        if [ $keep_count -lt 3 ]; then
+            echo "需要补充保留的版本，当前只保留了 $keep_count 个"
+            i=0
+            while IFS= read -r folder && [ $keep_count -lt 3 ]; do
+                if ! echo "$keep_folders" | grep -q "$folder"; then
+                    keep_folders="$keep_folders $folder"
+                    keep_count=$((keep_count + 1))
+                    echo "补充保留版本: $folder"
+                fi
+                i=$((i + 1))
+            done <<< "$folders"
+        fi
+        
+        echo "需要保留的版本:"
+        echo "$keep_folders"
+        
+        while IFS= read -r folder; do
+            if [ -n "$folder" ] && ! echo "$keep_folders" | grep -q "$folder"; then
+                echo "删除旧版本: $folder"
+                curl -s -u "$WEBDAV_USERNAME:$WEBDAV_PASSWORD" \
+                    -X DELETE "$WEBDAV_URL/$DEVICE_NAME/$folder/"
+                if [ $? -eq 0 ]; then
+                    echo "删除成功: $folder"
+                else
+                    echo "删除失败: $folder"
+                fi
+            fi
+        done <<< "$folders"
+        
+        echo "WebDAV 清理完成"
+
     - name: Delete workflow runs
       uses: Mattraks/delete-workflow-runs@main
       with:

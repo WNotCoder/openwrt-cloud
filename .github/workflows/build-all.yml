@@ -203,12 +203,14 @@ jobs:
       if: env.UPLOAD_WEBDAV == 'true' && !cancelled()
       run: |
         echo "开始上传固件到 WebDAV 服务器..."
-        for file in ${{ env.FIRMWARE }}/*; do
+        DEVICE_NAME_SHORT="${DEVICE_NAME:1}"
+        FILE_DATE_SHORT="${FILE_DATE:1}"
+        for file in "${FIRMWARE}"/*; do
           filename=$(basename "$file")
           echo "上传: $filename"
           curl -T "$file" \
             -u "${{ secrets.WEBDAV_USERNAME }}:${{ secrets.WEBDAV_PASSWORD }}" \
-            "${{ secrets.WEBDAV_URL }}/${{ env.DEVICE_NAME | slice(1) }}/${{ env.FILE_DATE | slice(1) }}/$filename"
+            "${{ secrets.WEBDAV_URL }}/${DEVICE_NAME_SHORT}/${FILE_DATE_SHORT}/$filename"
         done
         echo "WebDAV 上传完成"
 
@@ -220,7 +222,7 @@ jobs:
         WEBDAV_URL="${{ secrets.WEBDAV_URL }}"
         WEBDAV_USERNAME="${{ secrets.WEBDAV_USERNAME }}"
         WEBDAV_PASSWORD="${{ secrets.WEBDAV_PASSWORD }}"
-        DEVICE_NAME="${{ env.DEVICE_NAME | slice(1) }}"
+        DEVICE_NAME="${DEVICE_NAME:1}"
         
         response=$(curl -s -u "$WEBDAV_USERNAME:$WEBDAV_PASSWORD" \
             -X PROPFIND "$WEBDAV_URL/$DEVICE_NAME/" \

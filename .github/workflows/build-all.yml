@@ -229,7 +229,7 @@ jobs:
             -H "Content-Type: application/xml" \
             -d '<?xml version="1.0" encoding="utf-8" ?><propfind xmlns="DAV:"><prop><displayname /></prop></propfind>')
         
-        folders=$(echo "$response" | grep -oP '(?<=<displayname>)[0-9]{12}(?=</displayname>)' | sort -r)
+        folders=$(echo "$response" | grep -oP '(?<=<displayname>)[0-9]{12}(?=</displayname>)' | sort -r || true)
         
         echo "找到的固件版本文件夹:"
         echo "$folders"

@@ -226,8 +226,7 @@ jobs:
         
         response=$(curl -s -u "$WEBDAV_USERNAME:$WEBDAV_PASSWORD" \
             -X PROPFIND "$WEBDAV_URL/$DEVICE_NAME/" \
-            -H "Content-Type: application/xml" \
-            -d '<?xml version="1.0" encoding="utf-8" ?><propfind xmlns="DAV:"><prop><displayname /></prop></propfind>')
+            -H "Depth: 1")
         
         folders=$(echo "$response" | grep -oP '(?<=<displayname>)[0-9]{12}(?=</displayname>)' | sort -r || true)
         

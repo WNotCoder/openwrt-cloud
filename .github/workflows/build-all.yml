@@ -224,18 +224,11 @@ jobs:
         WEBDAV_PASSWORD="${{ secrets.WEBDAV_PASSWORD }}"
         DEVICE_NAME="${DEVICE_NAME:1}"
 
-        echo "DEBUG: WEBDAV_URL=$WEBDAV_URL"
-        echo "DEBUG: DEVICE_NAME=$DEVICE_NAME"
-        echo "DEBUG: Request URL: $WEBDAV_URL/$DEVICE_NAME/"
-
         response=$(curl -s -u "$WEBDAV_USERNAME:$WEBDAV_PASSWORD" \
             -X PROPFIND "$WEBDAV_URL/$DEVICE_NAME/" \
             -H "Depth: 1")
-
-        echo "DEBUG: Response:"
-        echo "$response"
         
-        folders=$(echo "$response" | grep -oP '(?<=<displayname>)[0-9]{12}(?=</displayname>)' | sort -r || true)
+        folders=$(echo "$response" | grep -oP '<[^>]*displayname>\K[0-9]{12}(?=</[^>]*displayname>)' | sort -r || true)
         
         echo "找到的固件版本文件夹:"
         echo "$folders"

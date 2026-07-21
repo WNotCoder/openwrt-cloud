@@ -242,18 +242,17 @@ jobs:
       if: env.UPLOAD_WEBDAV == 'true' && !cancelled()
       run: |
         echo "开始清理 WebDAV 上的旧固件..."
-        
+
         WEBDAV_URL="${{ secrets.WEBDAV_URL }}"
         WEBDAV_USERNAME="${{ secrets.WEBDAV_USERNAME }}"
         WEBDAV_PASSWORD="${{ secrets.WEBDAV_PASSWORD }}"
         DEVICE_NAME="${DEVICE_NAME:1}"
-        
+
         response=$(curl -s -u "$WEBDAV_USERNAME:$WEBDAV_PASSWORD" \
             -X PROPFIND "$WEBDAV_URL/$DEVICE_NAME/" \
-            -H "Content-Type: application/xml" \
-            -d '<?xml version="1.0" encoding="utf-8" ?><propfind xmlns="DAV:"><prop><displayname /></prop></propfind>')
+            -H "Depth: 1")
         
-        folders=$(echo "$response" | grep -oP '(?<=<displayname>)[0-9]{12}(?=</displayname>)' | sort -r || true)
+        folders=$(echo "$response" | grep -oP '<[^>]*displayname>\K[0-9]{12}(?=</[^>]*displayname>)' | sort -r || true)
         
         echo "找到的固件版本文件夹:"
         echo "$folders"

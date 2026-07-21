@@ -6,6 +6,9 @@ on:
       - build-all-trigger
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 env:
   REPO_URL: https://github.com/VIKINGYFY/immortalwrt
   REPO_BRANCH: main
@@ -15,7 +18,7 @@ env:
   DIY_U1_SH: diy-update.sh
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: true
-  UPLOAD_RELEASE: false
+  UPLOAD_RELEASE: true
   UPLOAD_WEBDAV: true
   FILTER_BIN_ONLY: true
   TZ: Asia/Shanghai
@@ -186,7 +189,28 @@ jobs:
       if: env.UPLOAD_RELEASE == 'true' && !cancelled()
       run: |
         echo "release_tag=$(date +"%Y.%m.%d-%H%M")-${{ matrix.name }}" >> $GITHUB_OUTPUT
-        touch release.txt
+        echo "## 📦 固件信息" > release.txt
+        echo "" >> release.txt
+        echo "- **设备型号**: ${{ matrix.name }}" >> release.txt
+        echo "- **设备标识**: ${{ matrix.device }}" >> release.txt
+        echo "- **编译时间**: $(date +"%Y-%m-%d %H:%M:%S")" >> release.txt
+        echo "- **源码分支**: ${{ env.REPO_BRANCH }}" >> release.txt
+        echo "- **编译线程**: $(nproc)" >> release.txt
+        echo "" >> release.txt
+        echo "## 📁 固件文件" >> release.txt
+        echo "" >> release.txt
+        for file in "${FIRMWARE}"/*; do
+          filename=$(basename "$file")
+          filesize=$(du -h "$file" | cut -f1)
+          echo "- \`${filename}\` (${filesize})" >> release.txt
+        done >> release.txt
+        echo "" >> release.txt
+        echo "## 🔗 下载链接" >> release.txt
+        echo "" >> release.txt
+        echo "所有文件可在本页面下方 Assets 区域下载" >> release.txt
+        echo "" >> release.txt
+        echo "---" >> release.txt
+        echo "📌 由 GitHub Actions 自动编译生成" >> release.txt
         echo "status=success" >> $GITHUB_OUTPUT
 
     - name: Upload firmware to release

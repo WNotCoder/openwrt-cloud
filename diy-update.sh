@@ -1,7 +1,14 @@
+#!/bin/bash
 # Add some actions
+
 rm -rf feeds/luci/applications/luci-app-mosdns
 rm -rf feeds/packages/net/{alist,adguardhome,mosdns,xray*,v2ray*,sing*,smartdns} feeds/packages/utils/v2dat feeds/packages/lang/golang
-git clone https://github.com/kenzok8/golang -b 1.26 feeds/packages/lang/golang
+git clone https://github.com/kenzok8/golang -b 1.27 feeds/packages/lang/golang || exit 1
+
+# 替换动作位于 feeds update -a 之后、feeds install -a 之前。
+# 必须重建索引，否则 install 仍按旧索引安装已删除的包（如 golang1.27 / golang-bootstrap）。
+# -i 只重建索引、不重新拉取 feed，避免覆盖刚替换的目录。
+./scripts/feeds update -i -a || exit 1
 
 
 # 下载OpenClash Meta core及nikki ip file

@@ -165,8 +165,10 @@ jobs:
     - name: Remove old Releases
       uses: dev-drprasad/delete-older-releases@master
       if: env.UPLOAD_RELEASE == 'true' && !cancelled()
+      continue-on-error: true
       with:
-        keep_latest: 3
+        # 4 devices x 2 versions; avoid deleting releases from this same batch
+        keep_latest: 8
         delete_tags: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

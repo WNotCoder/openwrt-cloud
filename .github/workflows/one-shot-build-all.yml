@@ -1,0 +1,19 @@
+name: One-shot Build All Dispatch
+
+on:
+  push:
+    paths:
+      - .github/workflows/one-shot-build-all.yml
+
+permissions:
+  contents: read
+  actions: write
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Build All Devices
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh api -X POST "repos/${{ github.repository }}/actions/workflows/266858425/dispatches" -f ref=main
